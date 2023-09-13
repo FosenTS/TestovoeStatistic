@@ -50,7 +50,7 @@ func (s *Storage) appendStatisticks(ctx context.Context, statistic *entity.Stati
 	return nil
 }
 
-func (s *Storage) UpdateStatisticks(ctx context.Context, statistic *entity.Statistic) error {
+func (s *Storage) UpdateStatistics(ctx context.Context, statistic *entity.Statistic) error {
 	var statisticSnaphot entity.Statistic
 	if err := s.pool.QueryRow(
 		ctx,
@@ -92,7 +92,7 @@ func (s *Storage) UpdateStatisticks(ctx context.Context, statistic *entity.Stati
 func (s *Storage) GetStatististicById(ctx context.Context, id int) ([]*entity.Statistic, error) {
 	rows, err := s.pool.Query(
 		ctx,
-		"SELECT id, postid, word, count, time from statisticks where postid = $1",
+		"SELECT id, postid, word, count, time from statisticks where postid = $1 order by count desc",
 		id,
 	)
 	if err != nil {
@@ -109,7 +109,7 @@ func (s *Storage) GetStatististicById(ctx context.Context, id int) ([]*entity.St
 func (s *Storage) GetAllStatistics(ctx context.Context) ([]*entity.Statistic, error) {
 	rows, err := s.pool.Query(
 		ctx,
-		"SELECT id, postid, word, count, time from statisticks",
+		"SELECT id, postid, word, count, time from statisticks order by count desc",
 	)
 	if err != nil {
 		return nil, err

@@ -25,7 +25,8 @@ func NewSecretary(storage *storage.Storage, httpController *http.HttpHandlerCont
 
 // Running a cron to collect new information, every 5 minutes
 func (s *Secretary) StartCron() {
-	s.cron.Every(1).Minute().Do(func() {
+	s.cron.Every(5).Minute().Do(func() {
+		s.logger.Log("job", "UpdateStatistics")
 		ctx, cancel := context.WithCancel(context.Background())
 		defer cancel()
 		s.statisticsJob(ctx)
@@ -51,7 +52,7 @@ func (s *Secretary) statisticsJob(ctx context.Context) {
 			if err != nil {
 				level.Error(s.logger).Log("err", err)
 			}
-			if err := s.storage.UpdateStatisticks(c, statistic); err != nil {
+			if err := s.storage.UpdateStatistics(c, statistic); err != nil {
 				level.Error(s.logger).Log("err", err)
 			}
 		}()
