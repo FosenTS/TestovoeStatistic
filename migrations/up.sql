@@ -1,0 +1,8 @@
+CREATE TABLE statisticks
+(
+    id BIGINT GENERATED ALWAYS AS IDENTITY NOT NULL,
+    postId BIGINT NOT NULL,
+    word CHAR NOT NULL,
+    count BIGINT NOT NULL,
+    time TIMESTAMP NOT NULL
+);

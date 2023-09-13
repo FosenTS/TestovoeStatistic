@@ -1,0 +1,4 @@
+maxConnections: 120
+maxConnectionAttempts: 3
+waitTimeoutMilliseconds: 4000
+simpleQueryMode: true
