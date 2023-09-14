@@ -48,11 +48,7 @@ func (s *Secretary) statisticsJob(ctx context.Context) {
 	}
 	for _, statistic := range statistics {
 		func() {
-			c := context.Background()
-			if err != nil {
-				level.Error(s.logger).Log("err", err)
-			}
-			if err := s.storage.UpdateStatistics(c, statistic); err != nil {
+			if err := s.storage.UpdateStatistics(ctx, statistic); err != nil {
 				level.Error(s.logger).Log("err", err)
 			}
 		}()
